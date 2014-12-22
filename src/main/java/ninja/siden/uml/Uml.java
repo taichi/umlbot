@@ -74,6 +74,7 @@ public class Uml {
 	}
 	
 	String unescape(String txt) {
+		// see. https://api.slack.com/docs/formatting
 		return txt.replace("&amp", "&").replace("&lt;", "<").replace("&gt;", ">");
 	}
 
