@@ -1,0 +1,14 @@
+{
+  "env": {
+    "HOST": {
+      "description": "application host name"
+    },
+    "TOKEN": {
+      "description": "slack sent in the outgoing payload"
+    },
+    "SIDEN_ENV": {
+      "description": "siden running mode",
+      "value": "production"
+    }
+  }
+}
