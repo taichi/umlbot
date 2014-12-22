@@ -1,4 +1,8 @@
 {
+  "name": "umlbot",
+  "description": "UML genrator bot for Slack on top PlantUML",
+  "repository": "https://github.com/taichi/umlbot",
+  "keywords": ["java8", "siden", "uml"],
   "env": {
     "HOST": {
       "description": "application host name"
