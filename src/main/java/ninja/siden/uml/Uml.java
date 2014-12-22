@@ -119,9 +119,12 @@ public class Uml {
 		}
 
 		String port = System.getenv("PORT");
-		int p = 80;
-		if (port != null && Pattern.matches("\\d{1,4}", port)) {
-			p = Integer.parseInt(port);
+		int p = 8080;
+		if (port != null && Pattern.matches("\\d{1,5}", port)) {
+			int i = Integer.parseInt(port);
+			if (0 < i && i < 65536) {
+				p = i;
+			}
 		}
 
 		App app = new App();
