@@ -2,18 +2,30 @@
 
 UML genrator bot for Slack on top PlantUML
 
-# License
+## Let's try
+
+1. setup [outgoing-webhook](https://my.slack.com/services/new/outgoing-webhook)
+2. [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+3. set HOST to Heroku
+4. set TOKEN to Heroku from outgoing-webhook
+5. set URL(s) to outgoing-webhook same as HOST
+
+## License
 
 GPL v3
 
-# Required Environment
+## Required Environment
 
 Java8 or higher
 
-# Build
+## Build
 
     ./gradlew installApp
 
-# Test
+## Test
 
     ./gradlew test
+
+## CI status
+
+[![wercker status](https://app.wercker.com/status/c1ba9b381bde8b76b181c3d4a1cc90d0/m "wercker status")](https://app.wercker.com/project/bykey/c1ba9b381bde8b76b181c3d4a1cc90d0)
