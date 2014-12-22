@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceCompatibility = targetCompatibility = 1.8
+
+dependencies {
+	compile 'ninja.siden:siden-core:0.2.0'
+	compile 'io.fastjson:boon:0.30'
+	compile 'net.sourceforge.plantuml:plantuml:8015'
+	
+	testCompile 'org.jmockit:jmockit:1.+'
+	testCompile "junit:junit:4.12"
+}
+
+mainClassName = "ninja.siden.uml.Uml"
+
+task stage(dependsOn: ['clean', 'installApp'])
+
+test {
+	systemProperty("java.awt.headless", "true")
+}
+
+eclipse {
+	classpath {
+		containers = [
+			'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+		]
+	}
+}
