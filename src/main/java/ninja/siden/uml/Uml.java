@@ -47,7 +47,7 @@ public class Uml {
 		}
 
 		String tw = request.form("trigger_word").orElse("");
-		String txt = request.form("text").orElse("");
+		String txt = request.form("text").map(this::unescape).orElse("");
 		if (txt.length() < tw.length()) {
 			return ignored;
 		}
@@ -71,6 +71,10 @@ public class Uml {
 		stb.append(host + "/imgs/" + encoded);
 		stb.append("\"}");
 		return stb;
+	}
+	
+	String unescape(String txt) {
+		return txt.replace("&amp", "&").replace("&lt;", "<").replace("&gt;", ">");
 	}
 
 	static Transcoder transcoder() {
