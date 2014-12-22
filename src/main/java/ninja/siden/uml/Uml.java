@@ -33,7 +33,7 @@ public class Uml {
 	Uml(App app, String host, String token) {
 		this.host = host;
 		this.token = token;
-		
+
 		app.get("/imgs/:encoded", this::imgs);
 		app.get("/", (req, res) -> "I'm running.!! yey!");
 		app.post("/", this::outgoing).type("application/json");
@@ -131,6 +131,7 @@ public class Uml {
 
 		App app = new App();
 		new Uml(app, host, token);
-		Runtime.getRuntime().addShutdownHook(new Thread(app.listen(p)::stop));
+		Runtime.getRuntime().addShutdownHook(
+				new Thread(app.listen("0.0.0.0", p)::stop));
 	}
 }
