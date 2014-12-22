@@ -11,9 +11,9 @@ sourceCompatibility = targetCompatibility = 1.8
 
 dependencies {
 	compile 'ninja.siden:siden-core:0.2.0'
-	compile 'io.fastjson:boon:0.30'
 	compile 'net.sourceforge.plantuml:plantuml:8015'
 	
+	testCompile 'io.fastjson:boon:0.30'
 	testCompile 'org.jmockit:jmockit:1.+'
 	testCompile "junit:junit:4.12"
 }
