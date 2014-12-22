@@ -34,8 +34,8 @@ public class Uml {
 		this.host = host;
 		this.token = token;
 
-		app.get("/imgs/:encoded", this::imgs);
-		app.get("/", (req, res) -> "I'm running.!! yey!");
+		app.get("/:encoded", this::imgs);
+		app.get("/", (req, res) -> "I'm running!! yey!");
 		app.post("/", this::outgoing).type("application/json");
 	}
 
@@ -65,10 +65,11 @@ public class Uml {
 			return stb;
 		}
 
-		String encoded = transcoder().encode(content);
-		StringBuilder stb = new StringBuilder();
+		StringBuilder stb = new StringBuilder(100);
 		stb.append("{\"text\":\"");
-		stb.append(host + "/imgs/" + encoded);
+		stb.append(host);
+		stb.append('/');
+		stb.append(transcoder().encode(content));
 		stb.append("\"}");
 		return stb;
 	}
