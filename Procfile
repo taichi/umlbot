@@ -1,1 +1,1 @@
-web: ./build/install/slackbot/bin/slackbot
+web: ./build/install/umlbot/bin/umlbot
