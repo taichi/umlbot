@@ -127,6 +127,7 @@ public class Uml {
 				p = i;
 			}
 		}
+		LOG.info(String.format("PORT:%s using:%d", port, p));
 
 		App app = new App();
 		new Uml(app, host, token);
