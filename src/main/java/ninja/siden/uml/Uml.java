@@ -34,6 +34,8 @@ public class Uml {
 		this.host = host;
 		this.token = token;
 
+		app.get("/favicon.ico", (req, res) -> getClass().getClassLoader()
+				.getResource("favicon.ico"));
 		app.get("/:encoded", this::imgs);
 		app.get("/", (req, res) -> "I'm running!! yey!");
 		app.post("/", this::outgoing).type("application/json");
@@ -73,10 +75,11 @@ public class Uml {
 		stb.append("\"}");
 		return stb;
 	}
-	
+
 	String unescape(String txt) {
 		// see. https://api.slack.com/docs/formatting
-		return txt.replace("&amp", "&").replace("&lt;", "<").replace("&gt;", ">");
+		return txt.replace("&amp", "&").replace("&lt;", "<")
+				.replace("&gt;", ">");
 	}
 
 	static Transcoder transcoder() {
