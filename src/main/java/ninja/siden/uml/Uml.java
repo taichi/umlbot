@@ -33,8 +33,9 @@ public class Uml {
 	Uml(App app, String host, String token) {
 		this.host = host;
 		this.token = token;
-
+		
 		app.get("/imgs/:encoded", this::imgs);
+		app.get("/", (req, res) -> "I'm running.!! yey!");
 		app.post("/", this::outgoing).type("application/json");
 	}
 
