@@ -1,7 +1,6 @@
 package ninja.siden.uml;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -94,12 +93,18 @@ public class UmlTest {
 			}
 		}.getMockInstance();
 		Response response = new MockUp<Response>() {
+			
+			@Mock
+			Response type(String contentType) {
+				return this.getMockInstance();
+			}
+			
 			@Mock(invocations = 1)
-			Void render(Object model, Renderer renderer) throws Exception {
-				return null;
+			Object render(Object model, Renderer<Object> renderer) {
+				return this.getMockInstance();
 			}
 		}.getMockInstance();
 		Object result = this.target.imgs(request, response);
-		assertNull(result);
+		assertNotNull(result);
 	}
 }

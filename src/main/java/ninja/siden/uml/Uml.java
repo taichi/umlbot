@@ -2,7 +2,6 @@ package ninja.siden.uml;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -87,22 +86,22 @@ public class Uml {
 	}
 
 	Object imgs(Request request, Response response) throws Exception {
-		Optional<String> dec = request.params("encoded").map(v -> {
-			try {
-				return transcoder().decode(v);
-			} catch (Exception e) {
-				LOG.log(Level.SEVERE, e.getMessage(), e);
-				return null;
-			}
-		});
-		if (dec.isPresent()) {
-			response.type("image/png");
-			SourceStringReader ssr = new SourceStringReader(dec.get());
-			return response.render(ssr, Renderer.ofStream((m, os) -> ssr
-					.generateImage(os, new FileFormatOption(FileFormat.PNG,
-							false))));
-		}
-		return 404;
+		return request
+				.params("encoded")
+				.map(v -> {
+					try {
+						return transcoder().decode(v);
+					} catch (Exception e) {
+						LOG.log(Level.SEVERE, e.getMessage(), e);
+						return null;
+					}
+				})
+				.map(SourceStringReader::new)
+				.map(v -> response.type("image/png").render(
+						v,
+						Renderer.ofStream((m, os) -> m.generateImage(os,
+								new FileFormatOption(FileFormat.PNG, false)))))
+				.orElse(404);
 	}
 
 	public static void main(String[] args) {
