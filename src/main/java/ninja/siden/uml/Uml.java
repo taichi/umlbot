@@ -42,7 +42,7 @@ public class Uml {
 	}
 
 	Object outgoing(Request request, Response response) throws Exception {
-		LOG.info(request::toString);
+		LOG.fine(request::toString);
 
 		if (request.form("token").filter(token::equals).isPresent() == false) {
 			return ignored;
