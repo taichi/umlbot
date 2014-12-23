@@ -10,6 +10,10 @@ UML genrator bot for Slack on top PlantUML
 4. set TOKEN to Heroku from outgoing-webhook
 5. set URL(s) to outgoing-webhook same as URL
 
+## Screenshot
+
+![umlbot](https://raw.githubusercontent.com/taichi/umlbot/master/docs/umlbot.png)
+
 ## License
 
 GPL v3
