@@ -106,6 +106,8 @@ public class Uml {
 	}
 
 	public static void main(String[] args) {
+		LOG.info("ENV: " + System.getenv().toString());
+		
 		String host = System.getenv("HOST");
 		if (host == null || host.isEmpty()) {
 			LOG.severe("HOST is not defined.");
