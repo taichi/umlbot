@@ -4,11 +4,11 @@
   "repository": "https://github.com/taichi/umlbot",
   "keywords": ["java8", "siden", "uml"],
   "env": {
-    "HOST": {
-      "description": "application host name"
+    "URL": {
+      "description": "heroku application url. like http://example.herokuapp.com"
     },
     "TOKEN": {
-      "description": "slack sent in the outgoing payload"
+      "description": "slack sent in the outgoing payload."
     },
     "SIDEN_ENV": {
       "description": "siden running mode",

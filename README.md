@@ -6,9 +6,9 @@ UML genrator bot for Slack on top PlantUML
 
 1. setup [outgoing-webhook](https://my.slack.com/services/new/outgoing-webhook)
 2. [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-3. set HOST to Heroku
+3. set URL to Heroku. URL same as Heroku application name or your domain name.
 4. set TOKEN to Heroku from outgoing-webhook
-5. set URL(s) to outgoing-webhook same as HOST
+5. set URL(s) to outgoing-webhook same as URL
 
 ## License
 

@@ -27,11 +27,11 @@ public class Uml {
 
 	static final String ignored = "{\"text\":\"\"}";
 
-	final String host;
+	final String url;
 	final String token;
 
-	Uml(App app, String host, String token) {
-		this.host = host;
+	Uml(App app, String url, String token) {
+		this.url = url;
 		this.token = token;
 
 		app.get("/favicon.ico", (req, res) -> getClass().getClassLoader()
@@ -69,7 +69,7 @@ public class Uml {
 
 		StringBuilder stb = new StringBuilder(100);
 		stb.append("{\"text\":\"");
-		stb.append(host);
+		stb.append(url);
 		stb.append('/');
 		stb.append(transcoder().encode(content));
 		stb.append("\"}");
@@ -77,7 +77,7 @@ public class Uml {
 	}
 
 	String unescape(String txt) {
-		// see. https://api.slack.com/docs/formatting
+		// https://api.slack.com/docs/formatting
 		return txt.replace("&amp", "&").replace("&lt;", "<")
 				.replace("&gt;", ">");
 	}
@@ -106,16 +106,17 @@ public class Uml {
 	}
 
 	public static void main(String[] args) {
-		LOG.info("ENV: " + System.getenv().toString());
-		
-		String host = System.getenv("HOST");
-		if (host == null || host.isEmpty()) {
-			LOG.severe("HOST is not defined.");
+		// https://devcenter.heroku.com/articles/dynos#local-environment-variables
+		LOG.info(System.getenv()::toString);
+
+		String url = System.getenv("URL");
+		if (url == null || url.isEmpty()) {
+			LOG.severe("URL is not defined.");
 			return;
 		}
 		try {
-			URL url = new URL(host);
-			if (url.getProtocol().startsWith("http") == false) {
+			URL u = new URL(url);
+			if (u.getProtocol().startsWith("http") == false) {
 				LOG.severe("HOST protocol must be http");
 				return;
 			}
@@ -138,10 +139,9 @@ public class Uml {
 				p = i;
 			}
 		}
-		LOG.info(String.format("PORT:%s using:%d", port, p));
 
 		App app = new App();
-		new Uml(app, host, token);
+		new Uml(app, url, token);
 		Runtime.getRuntime().addShutdownHook(
 				new Thread(app.listen("0.0.0.0", p)::stop));
 	}
