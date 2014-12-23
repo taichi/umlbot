@@ -5,7 +5,7 @@
   "keywords": ["java8", "siden", "uml"],
   "env": {
     "URL": {
-      "description": "heroku application url. like http://example.herokuapp.com"
+      "description": "heroku application url. like https://example.herokuapp.com"
     },
     "TOKEN": {
       "description": "slack sent in the outgoing payload."

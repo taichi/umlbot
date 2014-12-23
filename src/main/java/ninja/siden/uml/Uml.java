@@ -1,10 +1,16 @@
 package ninja.siden.uml;
 
+import io.undertow.server.HttpHandler;
+import io.undertow.server.handlers.cache.CacheHandler;
+import io.undertow.server.handlers.cache.DirectBufferCache;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import org.xnio.OptionMap;
 
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
@@ -32,8 +38,7 @@ public class Uml {
 	Uml(App app, String url, String token) {
 		this.url = url;
 		this.token = token;
-
-		app.get("/favicon.ico", (req, res) -> getClass().getClassLoader()
+		app.get("/favicon.ico", (req, res) -> Uml.class.getClassLoader()
 				.getResource("favicon.ico"));
 		app.get("/:encoded", this::imgs);
 		app.get("/", (req, res) -> "I'm running!! yey!");
@@ -139,7 +144,13 @@ public class Uml {
 			}
 		}
 
-		App app = new App();
+		App app = new App() {
+			@Override
+			protected HttpHandler wrap(OptionMap config, HttpHandler handler) {
+				DirectBufferCache cache = new DirectBufferCache(1024, 10, 1024 * 1024 * 200);
+				return new CacheHandler(cache, super.wrap(config, handler));
+			}
+		};
 		new Uml(app, url, token);
 		Runtime.getRuntime().addShutdownHook(
 				new Thread(app.listen("0.0.0.0", p)::stop));
