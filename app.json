@@ -13,6 +13,10 @@
     "SIDEN_ENV": {
       "description": "siden running mode",
       "value": "production"
+    },
+    "GRAPHVIZ_DOT": {
+      "description": "graphviz install dir. see https://github.com/weibeld/heroku-buildpack-graphviz-src/blob/master/bin/compile",
+      "value": "/app/vendor/graphviz/bin/dot"
     }
   }
 }
