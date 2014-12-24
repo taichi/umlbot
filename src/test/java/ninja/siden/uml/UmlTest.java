@@ -4,8 +4,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import mockit.Mock;
 import mockit.MockUp;
@@ -41,7 +43,9 @@ public class UmlTest {
 	@Before
 	public void setUp() {
 		App app = new App();
-		this.target = new Uml(app, HOST, TOKEN);
+		Set<String> set = new HashSet<>();
+		set.add(TOKEN);
+		this.target = new Uml(app, HOST, set);
 		this.stopper = app.listen();
 	}
 
@@ -93,12 +97,12 @@ public class UmlTest {
 			}
 		}.getMockInstance();
 		Response response = new MockUp<Response>() {
-			
+
 			@Mock
 			Response type(String contentType) {
 				return this.getMockInstance();
 			}
-			
+
 			@Mock(invocations = 1)
 			Object render(Object model, Renderer<Object> renderer) {
 				return this.getMockInstance();

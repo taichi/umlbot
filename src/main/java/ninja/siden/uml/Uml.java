@@ -6,11 +6,12 @@ import io.undertow.server.handlers.cache.DirectBufferCache;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import org.xnio.OptionMap;
 
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
@@ -23,6 +24,8 @@ import ninja.siden.Request;
 import ninja.siden.Response;
 import ninja.siden.util.Loggers;
 
+import org.xnio.OptionMap;
+
 /**
  * @author taichi
  */
@@ -33,11 +36,11 @@ public class Uml {
 	static final String ignored = "{\"text\":\"\"}";
 
 	final String url;
-	final String token;
+	final Set<String> tokens;
 
-	Uml(App app, String url, String token) {
+	Uml(App app, String url, Set<String> tokens) {
 		this.url = url;
-		this.token = token;
+		this.tokens = tokens;
 		app.get("/favicon.ico", (req, res) -> Uml.class.getClassLoader()
 				.getResource("favicon.ico"));
 		app.get("/:encoded", this::imgs);
@@ -48,7 +51,7 @@ public class Uml {
 	Object outgoing(Request request, Response response) throws Exception {
 		LOG.fine(request::toString);
 
-		if (request.form("token").filter(token::equals).isPresent() == false) {
+		if (request.form("token").filter(tokens::contains).isPresent() == false) {
 			return ignored;
 		}
 
@@ -134,6 +137,7 @@ public class Uml {
 			LOG.severe("TOKEN is not defined.");
 			return;
 		}
+		Set<String> tokens = new HashSet<>(Arrays.asList(token.split(",")));
 
 		String port = System.getenv("PORT");
 		int p = 8080;
@@ -147,11 +151,12 @@ public class Uml {
 		App app = new App() {
 			@Override
 			protected HttpHandler wrap(OptionMap config, HttpHandler handler) {
-				DirectBufferCache cache = new DirectBufferCache(1024, 10, 1024 * 1024 * 200);
+				DirectBufferCache cache = new DirectBufferCache(1024, 10,
+						1024 * 1024 * 200);
 				return new CacheHandler(cache, super.wrap(config, handler));
 			}
 		};
-		new Uml(app, url, token);
+		new Uml(app, url, tokens);
 		Runtime.getRuntime().addShutdownHook(
 				new Thread(app.listen("0.0.0.0", p)::stop));
 	}
