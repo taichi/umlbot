@@ -16,6 +16,8 @@ UML genrator bot for Slack on top PlantUML
 
 ![class](https://raw.githubusercontent.com/taichi/umlbot/master/docs/class.png)
 
+![object](https://raw.githubusercontent.com/taichi/umlbot/master/docs/object.png)
+
 ![wireframe](https://raw.githubusercontent.com/taichi/umlbot/master/docs/wireframe.png)
 
 ## License
