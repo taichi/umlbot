@@ -23,6 +23,7 @@ import ninja.siden.Renderer;
 import ninja.siden.Request;
 import ninja.siden.Response;
 import ninja.siden.util.Loggers;
+import ninja.siden.util.Trial;
 
 import org.xnio.OptionMap;
 
@@ -96,15 +97,12 @@ public class Uml {
 	Object imgs(Request request, Response response) throws Exception {
 		return request
 				.params("encoded")
-				.map(v -> {
-					try {
-						return transcoder().decode(v);
-					} catch (Exception e) {
-						LOG.log(Level.SEVERE, e.getMessage(), e);
-						return null;
-					}
-				})
-				.map(SourceStringReader::new)
+				.map(Trial.of(transcoder()::decode))
+				.<SourceStringReader> map( // jdk don't need this notation.
+						t -> t.either(SourceStringReader::new, ex -> {
+							LOG.log(Level.SEVERE, ex.getMessage(), ex);
+							return null;
+						}))
 				.map(v -> response.type("image/png").render(
 						v,
 						Renderer.ofStream((m, os) -> m.generateImage(os,
