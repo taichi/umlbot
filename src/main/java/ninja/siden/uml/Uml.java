@@ -98,7 +98,8 @@ public class Uml {
 		return request
 				.params("encoded")
 				.map(Trial.of(transcoder()::decode))
-				.<SourceStringReader> map( // jdk don't need this notation.
+				.<SourceStringReader> map( // jdk don't need this notation. see.
+											// https://bugs.eclipse.org/bugs/show_bug.cgi?id=437444
 						t -> t.either(SourceStringReader::new, ex -> {
 							LOG.log(Level.SEVERE, ex.getMessage(), ex);
 							return null;
