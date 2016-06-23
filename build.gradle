@@ -10,10 +10,10 @@ repositories {
 sourceCompatibility = targetCompatibility = 1.8
 
 dependencies {
-	compile 'ninja.siden:siden-core:0.3.1'
-	compile 'net.sourceforge.plantuml:plantuml:8015'
+	compile 'ninja.siden:siden-core:0.6.0'
+	compile 'net.sourceforge.plantuml:plantuml:8043'
 	
-	testCompile 'io.fastjson:boon:0.30'
+	testCompile 'io.fastjson:boon:0.33'
 	testCompile 'org.jmockit:jmockit:1.+'
 	testCompile "junit:junit:4.12"
 }

@@ -9,6 +9,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.boon.json.JsonFactory;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import mockit.Mock;
 import mockit.MockUp;
 import net.sourceforge.plantuml.code.Transcoder;
@@ -16,29 +21,18 @@ import ninja.siden.App;
 import ninja.siden.Renderer;
 import ninja.siden.Request;
 import ninja.siden.Response;
-import ninja.siden.util.Loggers;
-
-import org.boon.json.JsonFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import ninja.siden.Stoppable;
 
 /**
  * @author taichi
  */
 public class UmlTest {
 
-	App.Stoppable stopper;
+	Stoppable stopper;
 	Uml target;
 
 	static final String HOST = "http://example.com";
 	static final String TOKEN = "xxxxxxxxxx";
-
-	@BeforeClass
-	public static void beforeClass() {
-		Loggers.setFinest(Uml.LOG);
-	}
 
 	@Before
 	public void setUp() {
