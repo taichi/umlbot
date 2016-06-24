@@ -30,7 +30,7 @@ Java8 or higher
 
 ## Build
 
-    ./gradlew installApp
+    ./gradlew installDist
 
 ## Test
 

@@ -3,6 +3,14 @@
   "description": "UML genrator bot for Slack on top PlantUML",
   "repository": "https://github.com/taichi/umlbot",
   "keywords": ["java8", "siden", "uml"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/weibeld/heroku-buildpack-graphviz.git"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-gradle"
+    }
+  ],
   "env": {
     "URL": {
       "description": "heroku application url. like https://example.herokuapp.com"
@@ -13,9 +21,6 @@
     "SIDEN_ENV": {
       "description": "siden running mode",
       "value": "production"
-    },
-    "BUILDPACK_URL": {
-      "value": "https://github.com/ddollar/heroku-buildpack-multi.git"
     },
     "GRAPHVIZ_DOT": {
       "description": "graphviz install dir. see https://github.com/weibeld/heroku-buildpack-graphviz-src/blob/master/bin/compile",
