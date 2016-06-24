@@ -1,4 +1,4 @@
-box: 8-jdk
+box: java
 build:
     steps:
         - script:
